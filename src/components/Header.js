@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import "./components.scss";
 const Header = () => {
-
+    const [scrlHeight, setscrlHeight] = useState(0)
     const [scrl, setscrl] = useState({y:null})
     useEffect(() => {
         window.addEventListener("scroll",scrollChange)
@@ -10,21 +10,19 @@ const Header = () => {
             window.removeEventListener("scroll", scrollChange)
         }
     }, [scrl])
-        const scrollChange =(e)=>{
-            setscrl({y:e.path[1].scrollY})
-            if(scrl.y>=150){
-
-                document.getElementsByClassName("header")[0].classList.add("white")
-            }else  document.getElementsByClassName("header")[0].classList.remove("white")
+        const scrollChange = e =>{
+           let scroll = e.path[1].scrollY
+           setscrlHeight(scroll)
         }
+
     return (
-        <div className="header">
+        <div className={scrlHeight>=150?"header white":"header"}>
             <div className="center">
-            <Link to ="/" className="logo" >React template</Link>
+            <div className="logo">React template</div>
             <ul className="nav">
-                <li>DOWNLOAD</li>
-                <li>FEATURED</li>
-                <li>CONTACT</li>
+                <li className={scrlHeight >=817 && scrlHeight<1464?"yel":""} >DOWNLOAD</li>
+                <li className={scrlHeight>=1465&& scrlHeight<2440?"yel":""} >FEATURED</li>
+                <li className={scrlHeight>=2441?"yel":""}>  CONTACT</li>
             </ul>
             </div>
         </div>
